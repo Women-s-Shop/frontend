@@ -1,19 +1,19 @@
+import React from "react";
+import { Logo } from "./Logo";
+import { NavLinks } from "./NavLinks";
+import { UserActions } from "./UserActions";
 import "../styles/header.css";
-import { Link } from "react-router-dom";
 
-export function SiteHeader() {
+const Header = () => {
   return (
-    <header className="header">
-      <div className="header-container">
-        <Link to="/" className="logo">Classic Threads</Link>
-        <nav className="nav-links">
-          <Link to="/shop" className="nav-link">Shop</Link>
-          <Link to="/new" className="nav-link">New</Link>
-          <Link to="/sale" className="nav-link">Sale</Link>
-          <Link to="/about" className="nav-link">About</Link>
-          <Link to="/contact" className="nav-link">Contact</Link>
-        </nav>
+    <header className="site-header">
+      <div className="container flex items-center justify-between py-4 px-6">
+        <Logo />
+        <NavLinks />
+        <UserActions />
       </div>
     </header>
   );
-}
+};
+
+export default Header;
