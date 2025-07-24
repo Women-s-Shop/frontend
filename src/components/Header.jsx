@@ -1,30 +1,39 @@
-import { SearchBar } from "./SearchBar";
+"use client"
 
-export function SiteHeader() {
-  const handleSearch = (query) => {
-    console.log("Search query:", query);
-    // Кейін API немесе filter қосасың
-  };
+import "../styles/header.css"
+import Logo from "./Logo"
+import NavLinks from "./NavLinks"
+import SearchBar from "./SearchBar"
+import UserActions from "./UserActions"
 
+const Header = ({
+  cartCount,
+  onSearch,
+  searchResults,
+  onNavigateToAccount,
+  onNavigateHome,
+  onNavigateToAbout,
+  onNavigateToContact,
+  onNavigateToSupport,
+}) => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-sm dark:bg-gray-950/95">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-6">
-        <Link href="#" className="flex items-center gap-2 text-lg font-semibold" prefetch={false}>
-          <span className="text-xl font-serif tracking-wide">Classic Threads</span>
-        </Link>
-        
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-          <Link href="#" prefetch={false}>Shop</Link>
-          <Link href="#" prefetch={false}>New Arrivals</Link>
-          <Link href="#" prefetch={false}>Sale</Link>
-          <Link href="#" prefetch={false}>About</Link>
-          <Link href="#" prefetch={false}>Contact</Link>
-        </nav>
-
-        <div className="flex items-center gap-4">
-          <SearchBar onSearch={handleSearch} />
+    <header className="header" role="banner">
+      <div className="header-container">
+        <div className="header-content">
+          <div onClick={onNavigateHome} style={{ cursor: "pointer" }}>
+            <Logo />
+          </div>
+          <NavLinks
+            onNavigateToAbout={onNavigateToAbout}
+            onNavigateToContact={onNavigateToContact}
+            onNavigateToSupport={onNavigateToSupport}
+          />
+          <SearchBar onSearch={onSearch} searchResults={searchResults} />
+          <UserActions cartCount={cartCount} onNavigateToAccount={onNavigateToAccount} />
         </div>
       </div>
     </header>
-  );
+  )
 }
+
+export default Header

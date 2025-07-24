@@ -1,13 +1,26 @@
-import React from "react";
+"use client"
 
-export const NavLinks = () => {
+const NavLinks = ({ onNavigateToAbout, onNavigateToContact, onNavigateToSupport }) => {
+  const navItems = [
+    { action: () => (window.location.href = "#products"), label: "Products" },
+    { action: onNavigateToAbout, label: "About" },
+    { action: onNavigateToContact, label: "Contact" },
+    { action: onNavigateToSupport, label: "Support" },
+  ]
+
   return (
-    <nav className="nav-links hidden md:flex gap-6 text-sm font-medium text-gray-700">
-      <a href="#" className="hover:text-black">Shop</a>
-      <a href="#" className="hover:text-black">New Arrivals</a>
-      <a href="#" className="hover:text-black">Sale</a>
-      <a href="#" className="hover:text-black">About</a>
-      <a href="#" className="hover:text-black">Contact</a>
+    <nav role="navigation" aria-label="Main navigation">
+      <ul className="nav-links">
+        {navItems.map((item, index) => (
+          <li key={index}>
+            <button onClick={item.action} className="nav-button">
+              {item.label}
+            </button>
+          </li>
+        ))}
+      </ul>
     </nav>
-  );
-};
+  )
+}
+
+export default NavLinks
