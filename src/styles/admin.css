@@ -1,0 +1,240 @@
+/* Admin Page Styles */
+.admin-page {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+  }
+  
+  .admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .admin-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .admin-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .admin-header p {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  /* Tabs */
+  .admin-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #e9ecef;
+  }
+  
+  .tab-button {
+    background: none;
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6c757d;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .tab-button:hover {
+    color: #e91e63;
+  }
+  
+  .tab-button.active {
+    color: #e91e63;
+    border-bottom-color: #e91e63;
+  }
+  
+  /* Admin Content */
+  .admin-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .admin-actions {
+    margin-bottom: 2rem;
+  }
+  
+  .create-button {
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .create-button:hover {
+    background-color: #c2185b;
+  }
+  
+  /* Create Form */
+  .create-form-container {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+  
+  .create-form-container h3 {
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .create-form {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    color: #495057;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 0.75rem;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #e91e63;
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .submit-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+  
+  .submit-button:hover {
+    background-color: #218838;
+  }
+  
+  /* Data Section */
+  .data-section h3 {
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .data-table {
+    overflow-x: auto;
+  }
+  
+  .data-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .data-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+  }
+  
+  .data-table tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .edit-btn,
+  .delete-btn {
+    padding: 0.25rem 0.75rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    margin-right: 0.5rem;
+  }
+  
+  .edit-btn {
+    background-color: #17a2b8;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background-color: #138496;
+  }
+  
+  .delete-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c82333;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .admin-container {
+      padding: 0 0.5rem;
+    }
+  
+    .admin-content {
+      padding: 1rem;
+    }
+  
+    .create-form {
+      grid-template-columns: 1fr;
+    }
+  
+    .data-table {
+      font-size: 0.875rem;
+    }
+  
+    .data-table th,
+    .data-table td {
+      padding: 0.5rem;
+    }
+  }
+  
