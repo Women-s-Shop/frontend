@@ -1,29 +1,35 @@
 "use client"
 
-import { useState } from "react"
-
-const UserActions = ({ cartCount }) => {
-  const [showAccountPage, setShowAccountPage] = useState(false)
-
-  const handleAccountClick = (e) => {
-    e.preventDefault()
-    setShowAccountPage(true)
-  }
-
-  if (showAccountPage) {
-    // Dynamically import and render the AccountPage
-    const AccountPage = require("../pages/AccountPage").default
-    return <AccountPage />
-  }
+const UserActions = ({ cartCount, onNavigateToAccount, onNavigateHome, onNavigateToCart, currentPage }) => {
+  const isAccountPage = currentPage === "account"
 
   return (
     <div className="user-actions">
-      <a href="#account" className="user-action-btn" aria-label="My Account" onClick={handleAccountClick}>
+      <button
+        className={`user-action-btn ${isAccountPage ? "active" : ""}`}
+        aria-label="My Account"
+        onClick={onNavigateToAccount}
+      >
         👤 Account
-      </a>
-      <a href="#cart" className="user-action-btn" aria-label={`Shopping cart with ${cartCount} items`}>
-        🛒 Cart ({cartCount})
-      </a>
+      </button>
+
+      {isAccountPage ? (
+        <button
+          className="user-action-btn"
+          aria-label="Go Back to Home"
+          onClick={onNavigateHome}
+        >
+          🔙 Back
+        </button>
+      ) : (
+        <button
+          className="user-action-btn"
+          aria-label={`Shopping cart with ${cartCount} items`}
+          onClick={onNavigateToCart}
+        >
+          🛒 Cart ({cartCount})
+        </button>
+      )}
     </div>
   )
 }

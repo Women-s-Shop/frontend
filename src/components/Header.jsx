@@ -15,6 +15,8 @@ const Header = ({
   onNavigateToAbout,
   onNavigateToContact,
   onNavigateToSupport,
+  onNavigateToCart, // ✅ исправлено название
+  currentPage,
 }) => {
   return (
     <header className="header" role="banner">
@@ -27,9 +29,17 @@ const Header = ({
             onNavigateToAbout={onNavigateToAbout}
             onNavigateToContact={onNavigateToContact}
             onNavigateToSupport={onNavigateToSupport}
+            onNavigateToAccount={onNavigateToAccount}
+            onNavigateToCart={onNavigateToCart} // ✅ исправлено
           />
           <SearchBar onSearch={onSearch} searchResults={searchResults} />
-          <UserActions cartCount={cartCount} onNavigateToAccount={onNavigateToAccount} />
+          <UserActions
+            cartCount={cartCount}
+            onNavigateToAccount={onNavigateToAccount}
+            onNavigateHome={onNavigateHome}
+            onNavigateToCart={onNavigateToCart}
+            currentPage={currentPage}
+          />
         </div>
       </div>
     </header>
