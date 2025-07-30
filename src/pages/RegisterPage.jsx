@@ -13,7 +13,7 @@ const RegisterPage = ({ onNavigateHome }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.post("http://localhost:8080/api/register", form)
+      await axios.post("http://localhost:8888/api/register", form)
       onNavigateHome()
     } catch (err) {
       setError("Қате орын алды")
