@@ -1,6 +1,6 @@
 "use client"
 
-const NavLinks = ({ onNavigateToAbout, onNavigateToContact, onNavigateToSupport }) => {
+const NavLinks = ({ onNavigateToAbout, onNavigateToContact, onNavigateToSupport}) => {
   const navItems = [
     { action: () => (window.location.href = "#products"), label: "Products" },
     { action: onNavigateToAbout, label: "About" },

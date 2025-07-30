@@ -186,6 +186,7 @@
   color: #e91e63;
   padding: 0.5rem 1rem;
   border-radius: 20px;
+  min-width: 110px; 
   text-decoration: none;
   font-weight: 500;
   font-size: 0.875rem;
@@ -272,4 +273,10 @@
     background-color: #000000;
     color: #ffffff;
   }
+
+  .user-action-btn.active {
+  background-color: #ff4d4d;
+  color: white;
+}
+
 }

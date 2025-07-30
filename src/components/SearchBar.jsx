@@ -41,7 +41,6 @@ const SearchBar = ({ onSearch, searchResults }) => {
     <div className="search-container" ref={searchRef}>
       <form onSubmit={handleSubmit} role="search">
         <label htmlFor="search-input" className="sr-only">
-          Search products
         </label>
         <input
           id="search-input"
