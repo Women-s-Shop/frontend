@@ -8,20 +8,22 @@ import AboutPage from "./pages/AboutPage"
 import ContactPage from "./pages/ContactPage"
 import SupportPage from "./pages/SupportPage"
 import CartPage from "./pages/CartPage"
+import ProductDetailPage from "./pages/ProductDetailPage" // ⬅ обязательно создать этот файл
 
 const sampleProducts = [
-  { id: 1, name: "Elegant Dress", price: 89.99, category: "clothing" },
-  { id: 2, name: "Comfortable Shoes", price: 129.99, category: "footwear" },
-  { id: 3, name: "Beautiful Handbag", price: 159.99, category: "accessories" },
-  { id: 4, name: "Stylish Jacket", price: 199.99, category: "clothing" },
-  { id: 5, name: "Cozy Sweater", price: 79.99, category: "clothing" },
-  { id: 6, name: "Classic Watch", price: 249.99, category: "accessories" },
+  { id: 1, name: "Elegant Dress", price: 89.99, category: "clothing", description: "Elegant evening dress for any occasion." },
+  { id: 2, name: "Comfortable Shoes", price: 129.99, category: "footwear", description: "Stylish and supportive footwear." },
+  { id: 3, name: "Beautiful Handbag", price: 159.99, category: "accessories", description: "Spacious and elegant handbag." },
+  { id: 4, name: "Stylish Jacket", price: 199.99, category: "clothing", description: "Modern look, warm and comfy." },
+  { id: 5, name: "Cozy Sweater", price: 79.99, category: "clothing", description: "Soft and warm for cold days." },
+  { id: 6, name: "Classic Watch", price: 249.99, category: "accessories", description: "Timeless design and precision." },
 ]
 
 function App() {
   const [cart, setCart] = useState([])
   const [searchResults, setSearchResults] = useState([])
   const [currentPage, setCurrentPage] = useState("home")
+  const [selectedProduct, setSelectedProduct] = useState(null) // ⬅ хранит выбранный товар
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -59,7 +61,10 @@ function App() {
   const navigateToSupport = () => setCurrentPage("support")
   const navigateToHome = () => setCurrentPage("home")
   const navigateToCart = () => setCurrentPage("cart")
-
+  const navigateToProduct = (product) => {
+    setSelectedProduct(product)
+    setCurrentPage("product")
+  }
 
   const headerProps = {
     cartCount: cart.reduce((sum, item) => sum + item.quantity, 0),
@@ -124,13 +129,20 @@ function App() {
     )
   }
 
+  if (currentPage === "product") {
+    return (
+      <div className="App">
+        <Header {...headerProps} />
+        <ProductDetailPage product={selectedProduct} onBack={navigateToHome} onAddToCart={addToCart} />
+        <Footer />
+      </div>
+    )
+  }
+
   return (
     <div className="App">
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
       <Header {...headerProps} />
-      <main id="main-content" className="main-content">
+      <main className="main-content">
         <div className="container">
           <section className="hero-section">
             <h1 className="hero-title">Welcome to MA RÊVE</h1>
@@ -147,9 +159,13 @@ function App() {
               Our Collection
             </h2>
             <div className="products-grid">
-              {sampleProducts.map((product) => (
+              {(searchResults.length > 0 ? searchResults : sampleProducts).map((product) => (
                 <article key={product.id} className="product-card">
-                  <div className="product-image" role="img" aria-label={`${product.name} product image`}>
+                  <div
+                    className="product-image"
+                    onClick={() => navigateToProduct(product)}
+                    style={{ cursor: "pointer" }}
+                  >
                     {product.name}
                   </div>
                   <div className="product-info">
