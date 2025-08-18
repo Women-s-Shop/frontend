@@ -10,7 +10,7 @@ const LoginPage = ({ onNavigateHome }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post("http://localhost:8888/api/login", { email, password })
+      const res = await axios.post("http://localhost:8888/login", { email, password })
       localStorage.setItem("token", res.data.token)
       onNavigateHome()
       window.location.reload()

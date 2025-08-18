@@ -1,29 +1,35 @@
-// API service to handle all backend communications
-const API_BASE_URL = "http://localhost:8888" // Your Go backend URL
+const API_BASE_URL = "http://localhost:8888" // Go backend URL
 
 class ApiService {
   async request(endpoint, options = {}) {
     const url = `${API_BASE_URL}${endpoint}`
+
+    // Токенді localStorage-тен алып, керек болса headers-ке қосамыз
+    const token = localStorage.getItem("token")
+    const headers = {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...options.headers,
+    }
+
     const config = {
-      headers: {
-        "Content-Type": "application/json",
-        ...options.headers,
-      },
       ...options,
+      headers,
     }
 
     try {
       const response = await fetch(url, config)
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        const errorData = await response.json()
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`)
       }
 
-      // Handle empty responses (like DELETE)
       const contentType = response.headers.get("content-type")
       if (contentType && contentType.includes("application/json")) {
         return await response.json()
       }
+
       return null
     } catch (error) {
       console.error("API request failed:", error)
@@ -31,7 +37,7 @@ class ApiService {
     }
   }
 
-  // Product API methods - matching your exact endpoints
+  // 🔹 Products
   async getProducts() {
     return this.request("/products")
   }
@@ -60,7 +66,7 @@ class ApiService {
     })
   }
 
-  // User API methods - matching your exact endpoints
+  // 🔹 Users
   async getUsers() {
     return this.request("/users")
   }
@@ -86,6 +92,21 @@ class ApiService {
   async deleteUser(id) {
     return this.request(`/users/${id}`, {
       method: "DELETE",
+    })
+  }
+
+  // 🔹 Auth
+  async login(credentials) {
+    return this.request("/login", {
+      method: "POST",
+      body: JSON.stringify(credentials),
+    })
+  }
+
+  async register(userData) {
+    return this.request("/register", {
+      method: "POST",
+      body: JSON.stringify(userData),
     })
   }
 }

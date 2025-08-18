@@ -15,7 +15,7 @@ const Header = ({
   onNavigateToAbout,
   onNavigateToContact,
   onNavigateToSupport,
-  onNavigateToCart, // ✅ исправлено название
+  onNavigateToCart, 
   currentPage,
 }) => {
   return (
@@ -30,7 +30,7 @@ const Header = ({
             onNavigateToContact={onNavigateToContact}
             onNavigateToSupport={onNavigateToSupport}
             onNavigateToAccount={onNavigateToAccount}
-            onNavigateToCart={onNavigateToCart} // ✅ исправлено
+            onNavigateToCart={onNavigateToCart} 
           />
           <SearchBar onSearch={onSearch} searchResults={searchResults} />
           <UserActions
