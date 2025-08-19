@@ -1,10 +1,9 @@
-const API_BASE_URL = "http://localhost:8888" // Go backend URL
+const API_BASE_URL = "http://localhost:8888" // ⚡️ твой Go backend URL
 
 class ApiService {
   async request(endpoint, options = {}) {
     const url = `${API_BASE_URL}${endpoint}`
 
-    // Токенді localStorage-тен алып, керек болса headers-ке қосамыз
     const token = localStorage.getItem("token")
     const headers = {
       "Content-Type": "application/json",
@@ -108,6 +107,11 @@ class ApiService {
       method: "POST",
       body: JSON.stringify(userData),
     })
+  }
+
+  // 🔹 Profile (текущий юзер по токену)
+  async getMe() {
+    return this.request("/me")
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/account.css';
+import api from '../services/api';
 
 const AccountPage = () => {
   const [activeTab, setActiveTab] = useState('profile');
@@ -9,25 +10,40 @@ const AccountPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 🔹 Временные данные вместо API
-  const fakeUserData = {
-    name: "Beibarys Abdinazar",
-    email: "beibarys790@gmail.com",
-    phone: "+7 771 795 0059",
-    gender: "Male"
-  };
-
+  // 🔹 Загружаем пользователя из API
   useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setUser(fakeUserData);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setError("You are not logged in");
       setIsLoading(false);
-    }, 1000);
+      return;
+    }
+
+    (async () => {
+      try {
+        setIsLoading(true);
+        const me = await api.getMe();
+        setUser(me);
+        setEditedUser(me);
+      } catch (e) {
+        setError(e.message || "Failed to load profile");
+      } finally {
+        setIsLoading(false);
+      }
+    })();
   }, []);
 
-  const handleSave = () => {
-    setUser(editedUser);
-    setIsEditing(false);
+  const handleSave = async () => {
+    try {
+      // ⚡️ если на бэке есть PUT /me → здесь можно обновить данные
+      // const updated = await api.updateUser(user.id, editedUser);
+      // setUser(updated);
+
+      setUser(editedUser);
+      setIsEditing(false);
+    } catch (e) {
+      setError("Failed to save changes");
+    }
   };
 
   const handleCancel = () => {
@@ -42,28 +58,42 @@ const AccountPage = () => {
       <div className="profile-section">
         <div className="section-header">
           <h2>Profile Information</h2>
-          {!isEditing && <button className="edit-button" onClick={() => {
-            setEditedUser(user);
-            setIsEditing(true);
-          }}>Edit</button>}
+          {!isEditing && (
+            <button className="edit-button" onClick={() => {
+              setEditedUser(user);
+              setIsEditing(true);
+            }}>Edit</button>
+          )}
         </div>
         {isEditing ? (
           <div className="profile-info">
             <div className="info-item">
               <label>Full Name</label>
-              <input value={editedUser.name} onChange={(e) => setEditedUser({ ...editedUser, name: e.target.value })} />
+              <input
+                value={editedUser.name || ''}
+                onChange={(e) => setEditedUser({ ...editedUser, name: e.target.value })}
+              />
             </div>
             <div className="info-item">
               <label>Email</label>
-              <input value={editedUser.email} onChange={(e) => setEditedUser({ ...editedUser, email: e.target.value })} />
+              <input
+                value={editedUser.email || ''}
+                onChange={(e) => setEditedUser({ ...editedUser, email: e.target.value })}
+              />
             </div>
             <div className="info-item">
               <label>Phone</label>
-              <input value={editedUser.phone} onChange={(e) => setEditedUser({ ...editedUser, phone: e.target.value })} />
+              <input
+                value={editedUser.phone || ''}
+                onChange={(e) => setEditedUser({ ...editedUser, phone: e.target.value })}
+              />
             </div>
             <div className="info-item">
               <label>Gender</label>
-              <select value={editedUser.gender} onChange={(e) => setEditedUser({ ...editedUser, gender: e.target.value })}>
+              <select
+                value={editedUser.gender || ''}
+                onChange={(e) => setEditedUser({ ...editedUser, gender: e.target.value })}
+              >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
@@ -76,22 +106,10 @@ const AccountPage = () => {
           </div>
         ) : (
           <div className="profile-info">
-            <div className="info-item">
-              <label>Full Name</label>
-              <span>{user.name}</span>
-            </div>
-            <div className="info-item">
-              <label>Email</label>
-              <span>{user.email}</span>
-            </div>
-            <div className="info-item">
-              <label>Phone</label>
-              <span>{user.phone}</span>
-            </div>
-            <div className="info-item">
-              <label>Gender</label>
-              <span>{user.gender}</span>
-            </div>
+            <div className="info-item"><label>Full Name</label><span>{user.name}</span></div>
+            <div className="info-item"><label>Email</label><span>{user.email}</span></div>
+            <div className="info-item"><label>Phone</label><span>{user.phone}</span></div>
+            <div className="info-item"><label>Gender</label><span>{user.gender}</span></div>
           </div>
         )}
       </div>
